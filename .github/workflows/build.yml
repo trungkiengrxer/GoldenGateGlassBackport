@@ -1,0 +1,58 @@
+# Builds GoldenGateGlass.pkg on every push and pull request, runs the tests that do not depend on the host system,
+# and publishes the package as a GitHub Release when a tag v* is pushed.
+#
+# Most of the test suite (ggapp/tests/run-tests.sh, abi.sh, app.sh, ggglass/tests/run-tests.sh, glass-harness) needs
+# macOS 26.6 build 25G72, a GPU or a logged-in GUI session, so it only runs on a real target machine.
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    # Intel runner: the binaries are x86_64 only and the tests run them natively.
+    runs-on: macos-26-intel
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain
+        run: |
+          xcodebuild -version
+          # Xcode 26 ships without the Metal compiler; ggglass/build.sh needs it for gg27.metallib.
+          xcrun -sdk macosx metal --version >/dev/null 2>&1 || xcodebuild -downloadComponent MetalToolchain
+          xcrun -sdk macosx metal --version
+
+      - name: Build
+        run: |
+          # Package and app version: the tag without its "v" (v0.1.0 -> 0.1.0); 0.0.0 for untagged builds.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then export GG_VERSION="${GITHUB_REF_NAME#v}"; fi
+          ggapp/build.sh
+          ggglass/build.sh
+          installer/build.sh
+
+      - name: Tests (host independent)
+        run: |
+          installer/tests/run.sh
+          ggapp/tests/cli.sh
+          ggglass/tests/cli.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GoldenGateGlass.pkg
+          path: installer/build/GoldenGateGlass.pkg
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" installer/build/GoldenGateGlass.pkg \
+            --title "Golden Gate Glass $GITHUB_REF_NAME" \
+            --notes "Requires macOS 26.6 (25G72), Intel, SIP filesystem protections and AMFI disabled. The package is not signed: right-click it and choose Open, or run xattr -d com.apple.quarantine GoldenGateGlass.pkg. See README.md."

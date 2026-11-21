@@ -1,0 +1,16 @@
+# Apple glass function (QuartzCore 26.6) -> replacement function in glass26_replica.metal.
+# GGGlass only replaces the names in this file; other names keep Apple's original function.
+# QuartzCore in WindowServer on this Intel GPU only requests the _lph variants (GGGlass log); _lpf is kept for the harness.
+# The variants reading the SDF from a texture (no "sdf" in the name) are used by QuartzCore for large glass and while the
+# shape changes (Dock magnification, button hover); they must be replaced along with the sdf ones, or glass flickers between 27 and 26.6.
+# Not done yet: glass_foreground_*.
+# Outside this table (different ABI): the fixed_frag_* uber shader with constant 28 = 66 (26.6 key/fill highlight)
+# -> gg_no_kf_highlight (draws nothing), see ggKeyFillHighlight in GGGlass.m.
+glass_background_sdf_lpf gg27_glass_background_sdf_lpf
+glass_background_sdf_no_bleed_lpf gg27_glass_background_sdf_no_bleed_lpf
+glass_background_sdf_lph gg27_glass_background_sdf_lph
+glass_background_sdf_no_bleed_lph gg27_glass_background_sdf_no_bleed_lph
+glass_background_lpf gg27_glass_background_lpf
+glass_background_no_bleed_lpf gg27_glass_background_no_bleed_lpf
+glass_background_lph gg27_glass_background_lph
+glass_background_no_bleed_lph gg27_glass_background_no_bleed_lph

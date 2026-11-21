@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Golden Gate Glass package. Checks the machine with check.sh (the same script the app uses); messages match
+     machineProblem in installer/app/Model.swift. -->
+<installer-gui-script minSpecVersion="2">
+    <title>Golden Gate Glass</title>
+    <options customize="never" require-scripts="false" hostArchitectures="x86_64" allow-external-scripts="true"/>
+    <domains enable_localSystem="true" enable_anywhere="false" enable_currentUserHome="false"/>
+    <installation-check script="ggCheck()"/>
+    <script><![CDATA[
+function ggCheck() {
+    var code = system.run('check.sh');
+    if (code == 0) return true;
+    var messages = {
+        1: 'This Mac is not running macOS 26.6 (25G72).',
+        2: 'Golden Gate Glass requires an Intel Mac.',
+        3: 'System Integrity Protection (filesystem) must be disabled.',
+        4: 'AMFI must be disabled (amfi_get_out_of_my_way=1 in boot-args).'
+    };
+    my.result.type = 'Fatal';
+    my.result.title = 'Golden Gate Glass cannot be installed';
+    my.result.message = messages[code] || 'Could not check this Mac.';
+    return false;
+}
+]]></script>
+    <choices-outline>
+        <line choice="com.goldengateglass.pkg"/>
+    </choices-outline>
+    <choice id="com.goldengateglass.pkg" visible="false" title="Golden Gate Glass">
+        <pkg-ref id="com.goldengateglass.pkg"/>
+    </choice>
+    <!-- No forced restart: when updating over an install, reopened apps get the new version; only the first install
+         needs a restart so WindowServer loads GGGlass, and the conclusion page says so (no restart on every update). -->
+    <conclusion file="conclusion.html" mime-type="text/html"/>
+    <pkg-ref id="com.goldengateglass.pkg" version="__VERSION__" onConclusion="None">component.pkg</pkg-ref>
+</installer-gui-script>

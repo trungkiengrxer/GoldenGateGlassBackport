@@ -1,0 +1,3351 @@
+{
+  "device" : "Intel(R) UHD Graphics 630",
+  "functionCount" : 180,
+  "glassFunctions" : [
+    "glass_background_lpf",
+    "glass_background_lph",
+    "glass_background_no_bleed_lpf",
+    "glass_background_no_bleed_lph",
+    "glass_background_sdf_lpf",
+    "glass_background_sdf_lph",
+    "glass_background_sdf_no_bleed_lpf",
+    "glass_background_sdf_no_bleed_lph",
+    "glass_foreground_lpf",
+    "glass_foreground_lph",
+    "glass_foreground_sdf_lpf",
+    "glass_foreground_sdf_lph"
+  ],
+  "os" : "Version 26.6 (Build 25G72)",
+  "reflection" : {
+    "glass_background_lpf" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "float",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "dataType" : "float",
+          "index" : 4,
+          "kind" : "texture",
+          "name" : "sdf_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "name" : "displacement_mat",
+              "offset" : 0,
+              "type" : "float4"
+            },
+            {
+              "name" : "inner_refraction_amount",
+              "offset" : 16,
+              "type" : "float"
+            },
+            {
+              "name" : "inner_refraction_inv_height",
+              "offset" : 20,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_amount",
+              "offset" : 24,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_inv_height",
+              "offset" : 28,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold0",
+              "offset" : 32,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold1",
+              "offset" : 36,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_radius",
+              "offset" : 40,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_blur_radius",
+              "offset" : 44,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_amount",
+              "offset" : 48,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_inv_height",
+              "offset" : 52,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_amount",
+              "offset" : 56,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_height",
+              "offset" : 60,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_offset",
+              "offset" : 64,
+              "type" : "float2"
+            },
+            {
+              "name" : "shadow_blur_radius",
+              "offset" : 72,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_radius",
+              "offset" : 76,
+              "type" : "float"
+            },
+            {
+              "name" : "face_cm0",
+              "offset" : 80,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm1",
+              "offset" : 88,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm2",
+              "offset" : 96,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm0",
+              "offset" : 104,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm1",
+              "offset" : 112,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm2",
+              "offset" : 120,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm0",
+              "offset" : 128,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm1",
+              "offset" : 136,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm2",
+              "offset" : 144,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_contribution",
+              "offset" : 152,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_face_opacity",
+              "offset" : 156,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha0",
+              "offset" : 160,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha1",
+              "offset" : 164,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha2",
+              "offset" : 168,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha3",
+              "offset" : 172,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist0",
+              "offset" : 176,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist1",
+              "offset" : 180,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist2",
+              "offset" : 184,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist3",
+              "offset" : 188,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_dist0",
+              "offset" : 192,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_dist1",
+              "offset" : 196,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_opacity",
+              "offset" : 200,
+              "type" : "float"
+            },
+            {
+              "name" : "face_opacity",
+              "offset" : 204,
+              "type" : "float"
+            },
+            {
+              "name" : "bleed_darken",
+              "offset" : 208,
+              "type" : "float2"
+            },
+            {
+              "name" : "shadow_dist_offset",
+              "offset" : 216,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_opacity",
+              "offset" : 220,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_opacity",
+              "offset" : 224,
+              "type" : "float"
+            },
+            {
+              "name" : "holding_tone_opacity",
+              "offset" : 228,
+              "type" : "float"
+            },
+            {
+              "name" : "sdr_shadow_dist0",
+              "offset" : 232,
+              "type" : "float"
+            },
+            {
+              "name" : "sdr_shadow_dist1",
+              "offset" : 236,
+              "type" : "float"
+            },
+            {
+              "name" : "clamp_limit",
+              "offset" : 240,
+              "type" : "float"
+            },
+            {
+              "name" : "preserve_hue",
+              "offset" : 244,
+              "type" : "float"
+            },
+            {
+              "name" : "sdr_white_value",
+              "offset" : 248,
+              "type" : "float"
+            },
+            {
+              "name" : "x86_workaround",
+              "offset" : 252,
+              "type" : "float"
+            },
+            {
+              "name" : "complex_refraction",
+              "offset" : 256,
+              "type" : "float"
+            }
+          ],
+          "name" : "u",
+          "size" : 272,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 4,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : true
+        }
+      ],
+      "vertexFunction" : "variable_blur_vert_lpf"
+    },
+    "glass_background_lph" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "half",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "dataType" : "half",
+          "index" : 4,
+          "kind" : "texture",
+          "name" : "sdf_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "name" : "displacement_mat",
+              "offset" : 0,
+              "type" : "float4"
+            },
+            {
+              "name" : "inner_refraction_amount",
+              "offset" : 16,
+              "type" : "float"
+            },
+            {
+              "name" : "inner_refraction_inv_height",
+              "offset" : 20,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_amount",
+              "offset" : 24,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_inv_height",
+              "offset" : 28,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold0",
+              "offset" : 32,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold1",
+              "offset" : 36,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_radius",
+              "offset" : 40,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_blur_radius",
+              "offset" : 44,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_amount",
+              "offset" : 48,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_inv_height",
+              "offset" : 52,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_amount",
+              "offset" : 56,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_height",
+              "offset" : 60,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_offset",
+              "offset" : 64,
+              "type" : "float2"
+            },
+            {
+              "name" : "shadow_blur_radius",
+              "offset" : 72,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_radius",
+              "offset" : 76,
+              "type" : "float"
+            },
+            {
+              "name" : "face_cm0",
+              "offset" : 80,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm1",
+              "offset" : 88,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm2",
+              "offset" : 96,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm0",
+              "offset" : 104,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm1",
+              "offset" : 112,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm2",
+              "offset" : 120,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm0",
+              "offset" : 128,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm1",
+              "offset" : 136,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm2",
+              "offset" : 144,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_contribution",
+              "offset" : 152,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_face_opacity",
+              "offset" : 156,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha0",
+              "offset" : 160,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_alpha1",
+              "offset" : 162,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_alpha2",
+              "offset" : 164,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_alpha3",
+              "offset" : 166,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist0",
+              "offset" : 168,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist1",
+              "offset" : 170,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist2",
+              "offset" : 172,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist3",
+              "offset" : 174,
+              "type" : "half"
+            },
+            {
+              "name" : "edge_bleed_dist0",
+              "offset" : 176,
+              "type" : "half"
+            },
+            {
+              "name" : "edge_bleed_dist1",
+              "offset" : 178,
+              "type" : "half"
+            },
+            {
+              "name" : "edge_bleed_opacity",
+              "offset" : 180,
+              "type" : "half"
+            },
+            {
+              "name" : "face_opacity",
+              "offset" : 182,
+              "type" : "half"
+            },
+            {
+              "name" : "bleed_darken",
+              "offset" : 184,
+              "type" : "half2"
+            },
+            {
+              "name" : "shadow_dist_offset",
+              "offset" : 188,
+              "type" : "half"
+            },
+            {
+              "name" : "shadow_opacity",
+              "offset" : 190,
+              "type" : "half"
+            },
+            {
+              "name" : "refraction_opacity",
+              "offset" : 192,
+              "type" : "half"
+            },
+            {
+              "name" : "holding_tone_opacity",
+              "offset" : 194,
+              "type" : "half"
+            },
+            {
+              "name" : "sdr_shadow_dist0",
+              "offset" : 196,
+              "type" : "half"
+            },
+            {
+              "name" : "sdr_shadow_dist1",
+              "offset" : 198,
+              "type" : "half"
+            },
+            {
+              "name" : "clamp_limit",
+              "offset" : 200,
+              "type" : "half"
+            },
+            {
+              "name" : "preserve_hue",
+              "offset" : 202,
+              "type" : "half"
+            },
+            {
+              "name" : "sdr_white_value",
+              "offset" : 204,
+              "type" : "half"
+            },
+            {
+              "name" : "x86_workaround",
+              "offset" : 206,
+              "type" : "half"
+            },
+            {
+              "name" : "complex_refraction",
+              "offset" : 208,
+              "type" : "half"
+            }
+          ],
+          "name" : "u",
+          "size" : 224,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "half",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 2,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : true
+        }
+      ],
+      "vertexFunction" : "variable_blur_vert_lpf"
+    },
+    "glass_background_no_bleed_lpf" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "float",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "dataType" : "float",
+          "index" : 4,
+          "kind" : "texture",
+          "name" : "sdf_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "name" : "displacement_mat",
+              "offset" : 0,
+              "type" : "float4"
+            },
+            {
+              "name" : "inner_refraction_amount",
+              "offset" : 16,
+              "type" : "float"
+            },
+            {
+              "name" : "inner_refraction_inv_height",
+              "offset" : 20,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_amount",
+              "offset" : 24,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_inv_height",
+              "offset" : 28,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold0",
+              "offset" : 32,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold1",
+              "offset" : 36,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_radius",
+              "offset" : 40,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_blur_radius",
+              "offset" : 44,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_amount",
+              "offset" : 48,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_inv_height",
+              "offset" : 52,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_amount",
+              "offset" : 56,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_height",
+              "offset" : 60,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_offset",
+              "offset" : 64,
+              "type" : "float2"
+            },
+            {
+              "name" : "shadow_blur_radius",
+              "offset" : 72,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_radius",
+              "offset" : 76,
+              "type" : "float"
+            },
+            {
+              "name" : "face_cm0",
+              "offset" : 80,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm1",
+              "offset" : 88,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm2",
+              "offset" : 96,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm0",
+              "offset" : 104,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm1",
+              "offset" : 112,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm2",
+              "offset" : 120,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm0",
+              "offset" : 128,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm1",
+              "offset" : 136,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm2",
+              "offset" : 144,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_contribution",
+              "offset" : 152,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_face_opacity",
+              "offset" : 156,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha0",
+              "offset" : 160,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha1",
+              "offset" : 164,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha2",
+              "offset" : 168,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha3",
+              "offset" : 172,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist0",
+              "offset" : 176,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist1",
+              "offset" : 180,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist2",
+              "offset" : 184,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_dist3",
+              "offset" : 188,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_dist0",
+              "offset" : 192,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_dist1",
+              "offset" : 196,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_opacity",
+              "offset" : 200,
+              "type" : "float"
+            },
+            {
+              "name" : "face_opacity",
+              "offset" : 204,
+              "type" : "float"
+            },
+            {
+              "name" : "bleed_darken",
+              "offset" : 208,
+              "type" : "float2"
+            },
+            {
+              "name" : "shadow_dist_offset",
+              "offset" : 216,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_opacity",
+              "offset" : 220,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_opacity",
+              "offset" : 224,
+              "type" : "float"
+            },
+            {
+              "name" : "holding_tone_opacity",
+              "offset" : 228,
+              "type" : "float"
+            },
+            {
+              "name" : "sdr_shadow_dist0",
+              "offset" : 232,
+              "type" : "float"
+            },
+            {
+              "name" : "sdr_shadow_dist1",
+              "offset" : 236,
+              "type" : "float"
+            },
+            {
+              "name" : "clamp_limit",
+              "offset" : 240,
+              "type" : "float"
+            },
+            {
+              "name" : "preserve_hue",
+              "offset" : 244,
+              "type" : "float"
+            },
+            {
+              "name" : "sdr_white_value",
+              "offset" : 248,
+              "type" : "float"
+            },
+            {
+              "name" : "x86_workaround",
+              "offset" : 252,
+              "type" : "float"
+            },
+            {
+              "name" : "complex_refraction",
+              "offset" : 256,
+              "type" : "float"
+            }
+          ],
+          "name" : "u",
+          "size" : 272,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 4,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : true
+        }
+      ],
+      "vertexFunction" : "variable_blur_vert_lpf"
+    },
+    "glass_background_no_bleed_lph" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "half",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "dataType" : "half",
+          "index" : 4,
+          "kind" : "texture",
+          "name" : "sdf_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "name" : "displacement_mat",
+              "offset" : 0,
+              "type" : "float4"
+            },
+            {
+              "name" : "inner_refraction_amount",
+              "offset" : 16,
+              "type" : "float"
+            },
+            {
+              "name" : "inner_refraction_inv_height",
+              "offset" : 20,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_amount",
+              "offset" : 24,
+              "type" : "float"
+            },
+            {
+              "name" : "outer_refraction_inv_height",
+              "offset" : 28,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold0",
+              "offset" : 32,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_threshold1",
+              "offset" : 36,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_radius",
+              "offset" : 40,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_blur_radius",
+              "offset" : 44,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_amount",
+              "offset" : 48,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_bleed_inv_height",
+              "offset" : 52,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_amount",
+              "offset" : 56,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_height",
+              "offset" : 60,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_offset",
+              "offset" : 64,
+              "type" : "float2"
+            },
+            {
+              "name" : "shadow_blur_radius",
+              "offset" : 72,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_inv_radius",
+              "offset" : 76,
+              "type" : "float"
+            },
+            {
+              "name" : "face_cm0",
+              "offset" : 80,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm1",
+              "offset" : 88,
+              "type" : "half4"
+            },
+            {
+              "name" : "face_cm2",
+              "offset" : 96,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm0",
+              "offset" : 104,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm1",
+              "offset" : 112,
+              "type" : "half4"
+            },
+            {
+              "name" : "bleed_cm2",
+              "offset" : 120,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm0",
+              "offset" : 128,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm1",
+              "offset" : 136,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_cm2",
+              "offset" : 144,
+              "type" : "half4"
+            },
+            {
+              "name" : "shadow_contribution",
+              "offset" : 152,
+              "type" : "float"
+            },
+            {
+              "name" : "shadow_face_opacity",
+              "offset" : 156,
+              "type" : "float"
+            },
+            {
+              "name" : "blur_alpha0",
+              "offset" : 160,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_alpha1",
+              "offset" : 162,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_alpha2",
+              "offset" : 164,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_alpha3",
+              "offset" : 166,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist0",
+              "offset" : 168,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist1",
+              "offset" : 170,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist2",
+              "offset" : 172,
+              "type" : "half"
+            },
+            {
+              "name" : "blur_dist3",
+              "offset" : 174,
+              "type" : "half"
+            },
+            {
+              "name" : "edge_bleed_dist0",
+              "offset" : 176,
+              "type" : "half"
+            },
+            {
+              "name" : "edge_bleed_dist1",
+              "offset" : 178,
+              "type" : "half"
+            },
+            {
+              "name" : "edge_bleed_opacity",
+              "offset" : 180,
+              "type" : "half"
+            },
+            {
+              "name" : "face_opacity",
+              "offset" : 182,
+              "type" : "half"
+            },
+            {
+              "name" : "bleed_darken",
+              "offset" : 184,
+              "type" : "half2"
+            },
+            {
+              "name" : "shadow_dist_offset",
+              "offset" : 188,
+              "type" : "half"
+            },
+            {
+              "name" : "shadow_opacity",
+              "offset" : 190,
+              "type" : "half"
+            },
+            {
+              "name" : "refraction_opacity",
+              "offset" : 192,
+              "type" : "half"
+            },
+            {
+              "name" : "holding_tone_opacity",
+              "offset" : 194,
+              "type" : "half"
+            },
+            {
+              "name" : "sdr_shadow_dist0",
+              "offset" : 196,
+              "type" : "half"
+            },
+            {
+              "name" : "sdr_shadow_dist1",
+              "offset" : 198,
+              "type" : "half"
+            },
+            {
+              "name" : "clamp_limit",
+              "offset" : 200,
+              "type" : "half"
+            },
+            {
+              "name" : "preserve_hue",
+              "offset" : 202,
+              "type" : "half"
+            },
+            {
+              "name" : "sdr_white_value",
+              "offset" : 204,
+              "type" : "half"
+            },
+            {
+              "name" : "x86_workaround",
+              "offset" : 206,
+              "type" : "half"
+            },
+            {
+              "name" : "complex_refraction",
+              "offset" : 208,
+              "type" : "half"
+            }
+          ],
+          "name" : "u",
+          "size" : 224,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "half",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 2,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : true
+        }
+      ],
+      "vertexFunction" : "variable_blur_vert_lpf"
+    },
+    "glass_background_sdf_lpf" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "float",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "members" : [
+                {
+                  "name" : "arg",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "tr",
+                  "offset" : 16,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "arg2",
+                  "offset" : 32,
+                  "type" : "float4"
+                }
+              ],
+              "name" : "sdf",
+              "offset" : 0,
+              "type" : "struct"
+            },
+            {
+              "members" : [
+                {
+                  "name" : "displacement_mat",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "inner_refraction_amount",
+                  "offset" : 16,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inner_refraction_inv_height",
+                  "offset" : 20,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_amount",
+                  "offset" : 24,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_inv_height",
+                  "offset" : 28,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold0",
+                  "offset" : 32,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold1",
+                  "offset" : 36,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_radius",
+                  "offset" : 40,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_blur_radius",
+                  "offset" : 44,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_amount",
+                  "offset" : 48,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_inv_height",
+                  "offset" : 52,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_amount",
+                  "offset" : 56,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_height",
+                  "offset" : 60,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_offset",
+                  "offset" : 64,
+                  "type" : "float2"
+                },
+                {
+                  "name" : "shadow_blur_radius",
+                  "offset" : 72,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_radius",
+                  "offset" : 76,
+                  "type" : "float"
+                },
+                {
+                  "name" : "face_cm0",
+                  "offset" : 80,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm1",
+                  "offset" : 88,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm2",
+                  "offset" : 96,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm0",
+                  "offset" : 104,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm1",
+                  "offset" : 112,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm2",
+                  "offset" : 120,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm0",
+                  "offset" : 128,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm1",
+                  "offset" : 136,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm2",
+                  "offset" : 144,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_contribution",
+                  "offset" : 152,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_face_opacity",
+                  "offset" : 156,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha0",
+                  "offset" : 160,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha1",
+                  "offset" : 164,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha2",
+                  "offset" : 168,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha3",
+                  "offset" : 172,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist0",
+                  "offset" : 176,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist1",
+                  "offset" : 180,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist2",
+                  "offset" : 184,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist3",
+                  "offset" : 188,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_dist0",
+                  "offset" : 192,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_dist1",
+                  "offset" : 196,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_opacity",
+                  "offset" : 200,
+                  "type" : "float"
+                },
+                {
+                  "name" : "face_opacity",
+                  "offset" : 204,
+                  "type" : "float"
+                },
+                {
+                  "name" : "bleed_darken",
+                  "offset" : 208,
+                  "type" : "float2"
+                },
+                {
+                  "name" : "shadow_dist_offset",
+                  "offset" : 216,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_opacity",
+                  "offset" : 220,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_opacity",
+                  "offset" : 224,
+                  "type" : "float"
+                },
+                {
+                  "name" : "holding_tone_opacity",
+                  "offset" : 228,
+                  "type" : "float"
+                },
+                {
+                  "name" : "sdr_shadow_dist0",
+                  "offset" : 232,
+                  "type" : "float"
+                },
+                {
+                  "name" : "sdr_shadow_dist1",
+                  "offset" : 236,
+                  "type" : "float"
+                },
+                {
+                  "name" : "clamp_limit",
+                  "offset" : 240,
+                  "type" : "float"
+                },
+                {
+                  "name" : "preserve_hue",
+                  "offset" : 244,
+                  "type" : "float"
+                },
+                {
+                  "name" : "sdr_white_value",
+                  "offset" : 248,
+                  "type" : "float"
+                },
+                {
+                  "name" : "x86_workaround",
+                  "offset" : 252,
+                  "type" : "float"
+                },
+                {
+                  "name" : "complex_refraction",
+                  "offset" : 256,
+                  "type" : "float"
+                }
+              ],
+              "name" : "glass",
+              "offset" : 48,
+              "type" : "struct"
+            }
+          ],
+          "name" : "u",
+          "size" : 320,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 4,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : false
+        }
+      ],
+      "vertexFunction" : "sdf_filter_vert_lpf"
+    },
+    "glass_background_sdf_lph" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "half",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "members" : [
+                {
+                  "name" : "arg",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "tr",
+                  "offset" : 16,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "arg2",
+                  "offset" : 32,
+                  "type" : "float4"
+                }
+              ],
+              "name" : "sdf",
+              "offset" : 0,
+              "type" : "struct"
+            },
+            {
+              "members" : [
+                {
+                  "name" : "displacement_mat",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "inner_refraction_amount",
+                  "offset" : 16,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inner_refraction_inv_height",
+                  "offset" : 20,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_amount",
+                  "offset" : 24,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_inv_height",
+                  "offset" : 28,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold0",
+                  "offset" : 32,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold1",
+                  "offset" : 36,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_radius",
+                  "offset" : 40,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_blur_radius",
+                  "offset" : 44,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_amount",
+                  "offset" : 48,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_inv_height",
+                  "offset" : 52,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_amount",
+                  "offset" : 56,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_height",
+                  "offset" : 60,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_offset",
+                  "offset" : 64,
+                  "type" : "float2"
+                },
+                {
+                  "name" : "shadow_blur_radius",
+                  "offset" : 72,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_radius",
+                  "offset" : 76,
+                  "type" : "float"
+                },
+                {
+                  "name" : "face_cm0",
+                  "offset" : 80,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm1",
+                  "offset" : 88,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm2",
+                  "offset" : 96,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm0",
+                  "offset" : 104,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm1",
+                  "offset" : 112,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm2",
+                  "offset" : 120,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm0",
+                  "offset" : 128,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm1",
+                  "offset" : 136,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm2",
+                  "offset" : 144,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_contribution",
+                  "offset" : 152,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_face_opacity",
+                  "offset" : 156,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha0",
+                  "offset" : 160,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_alpha1",
+                  "offset" : 162,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_alpha2",
+                  "offset" : 164,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_alpha3",
+                  "offset" : 166,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist0",
+                  "offset" : 168,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist1",
+                  "offset" : 170,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist2",
+                  "offset" : 172,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist3",
+                  "offset" : 174,
+                  "type" : "half"
+                },
+                {
+                  "name" : "edge_bleed_dist0",
+                  "offset" : 176,
+                  "type" : "half"
+                },
+                {
+                  "name" : "edge_bleed_dist1",
+                  "offset" : 178,
+                  "type" : "half"
+                },
+                {
+                  "name" : "edge_bleed_opacity",
+                  "offset" : 180,
+                  "type" : "half"
+                },
+                {
+                  "name" : "face_opacity",
+                  "offset" : 182,
+                  "type" : "half"
+                },
+                {
+                  "name" : "bleed_darken",
+                  "offset" : 184,
+                  "type" : "half2"
+                },
+                {
+                  "name" : "shadow_dist_offset",
+                  "offset" : 188,
+                  "type" : "half"
+                },
+                {
+                  "name" : "shadow_opacity",
+                  "offset" : 190,
+                  "type" : "half"
+                },
+                {
+                  "name" : "refraction_opacity",
+                  "offset" : 192,
+                  "type" : "half"
+                },
+                {
+                  "name" : "holding_tone_opacity",
+                  "offset" : 194,
+                  "type" : "half"
+                },
+                {
+                  "name" : "sdr_shadow_dist0",
+                  "offset" : 196,
+                  "type" : "half"
+                },
+                {
+                  "name" : "sdr_shadow_dist1",
+                  "offset" : 198,
+                  "type" : "half"
+                },
+                {
+                  "name" : "clamp_limit",
+                  "offset" : 200,
+                  "type" : "half"
+                },
+                {
+                  "name" : "preserve_hue",
+                  "offset" : 202,
+                  "type" : "half"
+                },
+                {
+                  "name" : "sdr_white_value",
+                  "offset" : 204,
+                  "type" : "half"
+                },
+                {
+                  "name" : "x86_workaround",
+                  "offset" : 206,
+                  "type" : "half"
+                },
+                {
+                  "name" : "complex_refraction",
+                  "offset" : 208,
+                  "type" : "half"
+                }
+              ],
+              "name" : "glass",
+              "offset" : 48,
+              "type" : "struct"
+            }
+          ],
+          "name" : "u",
+          "size" : 272,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "half",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 2,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : false
+        }
+      ],
+      "vertexFunction" : "sdf_filter_vert_lpf"
+    },
+    "glass_background_sdf_no_bleed_lpf" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "float",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "members" : [
+                {
+                  "name" : "arg",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "tr",
+                  "offset" : 16,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "arg2",
+                  "offset" : 32,
+                  "type" : "float4"
+                }
+              ],
+              "name" : "sdf",
+              "offset" : 0,
+              "type" : "struct"
+            },
+            {
+              "members" : [
+                {
+                  "name" : "displacement_mat",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "inner_refraction_amount",
+                  "offset" : 16,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inner_refraction_inv_height",
+                  "offset" : 20,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_amount",
+                  "offset" : 24,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_inv_height",
+                  "offset" : 28,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold0",
+                  "offset" : 32,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold1",
+                  "offset" : 36,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_radius",
+                  "offset" : 40,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_blur_radius",
+                  "offset" : 44,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_amount",
+                  "offset" : 48,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_inv_height",
+                  "offset" : 52,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_amount",
+                  "offset" : 56,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_height",
+                  "offset" : 60,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_offset",
+                  "offset" : 64,
+                  "type" : "float2"
+                },
+                {
+                  "name" : "shadow_blur_radius",
+                  "offset" : 72,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_radius",
+                  "offset" : 76,
+                  "type" : "float"
+                },
+                {
+                  "name" : "face_cm0",
+                  "offset" : 80,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm1",
+                  "offset" : 88,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm2",
+                  "offset" : 96,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm0",
+                  "offset" : 104,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm1",
+                  "offset" : 112,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm2",
+                  "offset" : 120,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm0",
+                  "offset" : 128,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm1",
+                  "offset" : 136,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm2",
+                  "offset" : 144,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_contribution",
+                  "offset" : 152,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_face_opacity",
+                  "offset" : 156,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha0",
+                  "offset" : 160,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha1",
+                  "offset" : 164,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha2",
+                  "offset" : 168,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha3",
+                  "offset" : 172,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist0",
+                  "offset" : 176,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist1",
+                  "offset" : 180,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist2",
+                  "offset" : 184,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_dist3",
+                  "offset" : 188,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_dist0",
+                  "offset" : 192,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_dist1",
+                  "offset" : 196,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_opacity",
+                  "offset" : 200,
+                  "type" : "float"
+                },
+                {
+                  "name" : "face_opacity",
+                  "offset" : 204,
+                  "type" : "float"
+                },
+                {
+                  "name" : "bleed_darken",
+                  "offset" : 208,
+                  "type" : "float2"
+                },
+                {
+                  "name" : "shadow_dist_offset",
+                  "offset" : 216,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_opacity",
+                  "offset" : 220,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_opacity",
+                  "offset" : 224,
+                  "type" : "float"
+                },
+                {
+                  "name" : "holding_tone_opacity",
+                  "offset" : 228,
+                  "type" : "float"
+                },
+                {
+                  "name" : "sdr_shadow_dist0",
+                  "offset" : 232,
+                  "type" : "float"
+                },
+                {
+                  "name" : "sdr_shadow_dist1",
+                  "offset" : 236,
+                  "type" : "float"
+                },
+                {
+                  "name" : "clamp_limit",
+                  "offset" : 240,
+                  "type" : "float"
+                },
+                {
+                  "name" : "preserve_hue",
+                  "offset" : 244,
+                  "type" : "float"
+                },
+                {
+                  "name" : "sdr_white_value",
+                  "offset" : 248,
+                  "type" : "float"
+                },
+                {
+                  "name" : "x86_workaround",
+                  "offset" : 252,
+                  "type" : "float"
+                },
+                {
+                  "name" : "complex_refraction",
+                  "offset" : 256,
+                  "type" : "float"
+                }
+              ],
+              "name" : "glass",
+              "offset" : 48,
+              "type" : "struct"
+            }
+          ],
+          "name" : "u",
+          "size" : 320,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 4,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : false
+        }
+      ],
+      "vertexFunction" : "sdf_filter_vert_lpf"
+    },
+    "glass_background_sdf_no_bleed_lph" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "half",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "members" : [
+                {
+                  "name" : "arg",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "tr",
+                  "offset" : 16,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "arg2",
+                  "offset" : 32,
+                  "type" : "float4"
+                }
+              ],
+              "name" : "sdf",
+              "offset" : 0,
+              "type" : "struct"
+            },
+            {
+              "members" : [
+                {
+                  "name" : "displacement_mat",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "inner_refraction_amount",
+                  "offset" : 16,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inner_refraction_inv_height",
+                  "offset" : 20,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_amount",
+                  "offset" : 24,
+                  "type" : "float"
+                },
+                {
+                  "name" : "outer_refraction_inv_height",
+                  "offset" : 28,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold0",
+                  "offset" : 32,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_threshold1",
+                  "offset" : 36,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_radius",
+                  "offset" : 40,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_blur_radius",
+                  "offset" : 44,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_amount",
+                  "offset" : 48,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_bleed_inv_height",
+                  "offset" : 52,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_amount",
+                  "offset" : 56,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_height",
+                  "offset" : 60,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_offset",
+                  "offset" : 64,
+                  "type" : "float2"
+                },
+                {
+                  "name" : "shadow_blur_radius",
+                  "offset" : 72,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_inv_radius",
+                  "offset" : 76,
+                  "type" : "float"
+                },
+                {
+                  "name" : "face_cm0",
+                  "offset" : 80,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm1",
+                  "offset" : 88,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "face_cm2",
+                  "offset" : 96,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm0",
+                  "offset" : 104,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm1",
+                  "offset" : 112,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "bleed_cm2",
+                  "offset" : 120,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm0",
+                  "offset" : 128,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm1",
+                  "offset" : 136,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_cm2",
+                  "offset" : 144,
+                  "type" : "half4"
+                },
+                {
+                  "name" : "shadow_contribution",
+                  "offset" : 152,
+                  "type" : "float"
+                },
+                {
+                  "name" : "shadow_face_opacity",
+                  "offset" : 156,
+                  "type" : "float"
+                },
+                {
+                  "name" : "blur_alpha0",
+                  "offset" : 160,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_alpha1",
+                  "offset" : 162,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_alpha2",
+                  "offset" : 164,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_alpha3",
+                  "offset" : 166,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist0",
+                  "offset" : 168,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist1",
+                  "offset" : 170,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist2",
+                  "offset" : 172,
+                  "type" : "half"
+                },
+                {
+                  "name" : "blur_dist3",
+                  "offset" : 174,
+                  "type" : "half"
+                },
+                {
+                  "name" : "edge_bleed_dist0",
+                  "offset" : 176,
+                  "type" : "half"
+                },
+                {
+                  "name" : "edge_bleed_dist1",
+                  "offset" : 178,
+                  "type" : "half"
+                },
+                {
+                  "name" : "edge_bleed_opacity",
+                  "offset" : 180,
+                  "type" : "half"
+                },
+                {
+                  "name" : "face_opacity",
+                  "offset" : 182,
+                  "type" : "half"
+                },
+                {
+                  "name" : "bleed_darken",
+                  "offset" : 184,
+                  "type" : "half2"
+                },
+                {
+                  "name" : "shadow_dist_offset",
+                  "offset" : 188,
+                  "type" : "half"
+                },
+                {
+                  "name" : "shadow_opacity",
+                  "offset" : 190,
+                  "type" : "half"
+                },
+                {
+                  "name" : "refraction_opacity",
+                  "offset" : 192,
+                  "type" : "half"
+                },
+                {
+                  "name" : "holding_tone_opacity",
+                  "offset" : 194,
+                  "type" : "half"
+                },
+                {
+                  "name" : "sdr_shadow_dist0",
+                  "offset" : 196,
+                  "type" : "half"
+                },
+                {
+                  "name" : "sdr_shadow_dist1",
+                  "offset" : 198,
+                  "type" : "half"
+                },
+                {
+                  "name" : "clamp_limit",
+                  "offset" : 200,
+                  "type" : "half"
+                },
+                {
+                  "name" : "preserve_hue",
+                  "offset" : 202,
+                  "type" : "half"
+                },
+                {
+                  "name" : "sdr_white_value",
+                  "offset" : 204,
+                  "type" : "half"
+                },
+                {
+                  "name" : "x86_workaround",
+                  "offset" : 206,
+                  "type" : "half"
+                },
+                {
+                  "name" : "complex_refraction",
+                  "offset" : 208,
+                  "type" : "half"
+                }
+              ],
+              "name" : "glass",
+              "offset" : 48,
+              "type" : "struct"
+            }
+          ],
+          "name" : "u",
+          "size" : 272,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "half",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 2,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : false
+        }
+      ],
+      "vertexFunction" : "sdf_filter_vert_lpf"
+    },
+    "glass_foreground_lpf" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "float",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "dataType" : "float",
+          "index" : 4,
+          "kind" : "texture",
+          "name" : "sdf_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "name" : "displacement_mat",
+              "offset" : 0,
+              "type" : "float4"
+            },
+            {
+              "name" : "refraction_amount",
+              "offset" : 16,
+              "type" : "float"
+            },
+            {
+              "name" : "inv_refraction_height",
+              "offset" : 20,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_offset",
+              "offset" : 24,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_amount",
+              "offset" : 28,
+              "type" : "float"
+            },
+            {
+              "name" : "inv_aberration_height",
+              "offset" : 32,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_offset",
+              "offset" : 36,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_angle_x",
+              "offset" : 40,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_angle_y",
+              "offset" : 44,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_start",
+              "offset" : 48,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_end",
+              "offset" : 52,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_opacity_start",
+              "offset" : 56,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_opacity_end",
+              "offset" : 60,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_angle_x",
+              "offset" : 64,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_angle_y",
+              "offset" : 68,
+              "type" : "float"
+            }
+          ],
+          "name" : "u",
+          "size" : 80,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 4,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : true
+        }
+      ],
+      "vertexFunction" : "variable_blur_vert_lpf"
+    },
+    "glass_foreground_lph" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "half",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "dataType" : "half",
+          "index" : 4,
+          "kind" : "texture",
+          "name" : "sdf_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "name" : "displacement_mat",
+              "offset" : 0,
+              "type" : "float4"
+            },
+            {
+              "name" : "refraction_amount",
+              "offset" : 16,
+              "type" : "float"
+            },
+            {
+              "name" : "inv_refraction_height",
+              "offset" : 20,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_offset",
+              "offset" : 24,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_amount",
+              "offset" : 28,
+              "type" : "float"
+            },
+            {
+              "name" : "inv_aberration_height",
+              "offset" : 32,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_offset",
+              "offset" : 36,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_angle_x",
+              "offset" : 40,
+              "type" : "float"
+            },
+            {
+              "name" : "aberration_angle_y",
+              "offset" : 44,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_start",
+              "offset" : 48,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_end",
+              "offset" : 52,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_opacity_start",
+              "offset" : 56,
+              "type" : "float"
+            },
+            {
+              "name" : "edge_opacity_end",
+              "offset" : 60,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_angle_x",
+              "offset" : 64,
+              "type" : "float"
+            },
+            {
+              "name" : "refraction_angle_y",
+              "offset" : 68,
+              "type" : "float"
+            }
+          ],
+          "name" : "u",
+          "size" : 80,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "half",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 2,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : true
+        }
+      ],
+      "vertexFunction" : "variable_blur_vert_lpf"
+    },
+    "glass_foreground_sdf_lpf" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "float",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "members" : [
+                {
+                  "name" : "arg",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "tr",
+                  "offset" : 16,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "arg2",
+                  "offset" : 32,
+                  "type" : "float4"
+                }
+              ],
+              "name" : "sdf",
+              "offset" : 0,
+              "type" : "struct"
+            },
+            {
+              "members" : [
+                {
+                  "name" : "displacement_mat",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "refraction_amount",
+                  "offset" : 16,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inv_refraction_height",
+                  "offset" : 20,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_offset",
+                  "offset" : 24,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_amount",
+                  "offset" : 28,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inv_aberration_height",
+                  "offset" : 32,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_offset",
+                  "offset" : 36,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_angle_x",
+                  "offset" : 40,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_angle_y",
+                  "offset" : 44,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_start",
+                  "offset" : 48,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_end",
+                  "offset" : 52,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_opacity_start",
+                  "offset" : 56,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_opacity_end",
+                  "offset" : 60,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_angle_x",
+                  "offset" : 64,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_angle_y",
+                  "offset" : 68,
+                  "type" : "float"
+                }
+              ],
+              "name" : "glass",
+              "offset" : 48,
+              "type" : "struct"
+            }
+          ],
+          "name" : "u",
+          "size" : 128,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 4,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : false
+        }
+      ],
+      "vertexFunction" : "sdf_filter_vert_lpf"
+    },
+    "glass_foreground_sdf_lph" : {
+      "fragmentBindings" : [
+        {
+          "dataType" : "half",
+          "index" : 3,
+          "kind" : "texture",
+          "name" : "source_texture",
+          "textureType" : 2,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "struct",
+          "index" : 1,
+          "kind" : "buffer",
+          "members" : [
+            {
+              "members" : [
+                {
+                  "name" : "arg",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "tr",
+                  "offset" : 16,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "arg2",
+                  "offset" : 32,
+                  "type" : "float4"
+                }
+              ],
+              "name" : "sdf",
+              "offset" : 0,
+              "type" : "struct"
+            },
+            {
+              "members" : [
+                {
+                  "name" : "displacement_mat",
+                  "offset" : 0,
+                  "type" : "float4"
+                },
+                {
+                  "name" : "refraction_amount",
+                  "offset" : 16,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inv_refraction_height",
+                  "offset" : 20,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_offset",
+                  "offset" : 24,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_amount",
+                  "offset" : 28,
+                  "type" : "float"
+                },
+                {
+                  "name" : "inv_aberration_height",
+                  "offset" : 32,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_offset",
+                  "offset" : 36,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_angle_x",
+                  "offset" : 40,
+                  "type" : "float"
+                },
+                {
+                  "name" : "aberration_angle_y",
+                  "offset" : 44,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_start",
+                  "offset" : 48,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_end",
+                  "offset" : 52,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_opacity_start",
+                  "offset" : 56,
+                  "type" : "float"
+                },
+                {
+                  "name" : "edge_opacity_end",
+                  "offset" : 60,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_angle_x",
+                  "offset" : 64,
+                  "type" : "float"
+                },
+                {
+                  "name" : "refraction_angle_y",
+                  "offset" : 68,
+                  "type" : "float"
+                }
+              ],
+              "name" : "glass",
+              "offset" : 48,
+              "type" : "struct"
+            }
+          ],
+          "name" : "u",
+          "size" : 128,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "half",
+          "index" : 6,
+          "kind" : "buffer",
+          "name" : "edr_scale",
+          "size" : 2,
+          "used" : true
+        }
+      ],
+      "functionType" : "fragment",
+      "pixelFormat" : 80,
+      "vertexBindings" : [
+        {
+          "alignment" : 4,
+          "dataType" : "struct",
+          "index" : 30,
+          "kind" : "buffer",
+          "name" : "vertexBuffer.0",
+          "size" : 32,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4x4",
+          "index" : 2,
+          "kind" : "buffer",
+          "name" : "mvp_matrix",
+          "size" : 64,
+          "used" : true
+        },
+        {
+          "alignment" : 32,
+          "dataType" : "float4",
+          "index" : 3,
+          "kind" : "buffer",
+          "name" : "texmat",
+          "size" : 16,
+          "used" : false
+        }
+      ],
+      "vertexFunction" : "sdf_filter_vert_lpf"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+#!/bin/zsh
+# Controls GGGlass (the dylib that replaces the glass shader inside WindowServer).
+#   ggglass tint <0..1>   set transparency like the macOS 27 slider (0 clear, 0.5 default, 1 opaque), applied immediately (build/ggtint)
+#   ggglass tint --reset  back to the 0.5 default, removes NSGlassTintAmount
+#   ggglass off | on      disable / enable via the kill-switch (on also clears the crash guard history)
+#   ggglass status        print settings and the last 20 log lines
+# off/on take effect at the next login (WindowServer restarts on logout). tint applies immediately via Darwin notify
+# (GGGlass) and coordinated notification type 12 (apps with ggapp).
+# Install directory: $GG_ROOT or /Users/Shared/GoldenGate.
+# Log and crash guard history: $GG_STATE or /Library/Logs/WindowServer/GoldenGate (the WindowServer sandbox only allows writes there).
+root=${GG_ROOT:-/Users/Shared/GoldenGate}
+state=${GG_STATE:-/Library/Logs/WindowServer/GoldenGate}
+mkdir -p $root
+case ${1:-} in
+    tint)
+        v=${2:-}
+        ggtint=${0:A:h}/build/ggtint
+        [ -x $ggtint ] || { print -u2 "missing $ggtint, run ggglass/build.sh first"; exit 1; }
+        if [[ $v == --reset || $v =~ '^(0(\.[0-9]+)?|1(\.0+)?)$' ]]; then
+            GG_ROOT=$root $ggtint $v
+        else
+            print -u2 "tint must be a number in 0..1 or --reset"; exit 1
+        fi ;;
+    off) touch $root/disable && print "disabled (log out and back in to return to the stock shader)" ;;
+    on)  rm -f $root/disable $state/boots.plist && print "enabled (log out and back in to apply)" ;;   # remove, not overwrite: the file is created by _windowserver
+    status)
+        print "directory: $root"
+        [ -f $root/disable ] && print "state: OFF (disable file present)" || print "state: on"
+        print "settings:"; defaults read $root/settings 2>/dev/null || print "  (defaults: tintAmount 0.5, pixelLength 1.0)"
+        print "log ($state/ggglass.log):"; tail -20 $state/ggglass.log 2>/dev/null || print "  (no log yet)" ;;
+    *) print -u2 "usage: ggglass tint <0..1> | off | on | status"; exit 1 ;;
+esac

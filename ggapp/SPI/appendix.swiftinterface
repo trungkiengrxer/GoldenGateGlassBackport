@@ -1,0 +1,162 @@
+// ===== ggapp: hand-declared SwiftUICore 26.6 (25G72) SPI, appended to the SDK interface at build time (build.sh) =====
+// Derived from reverse-engineering test apps of the 26.6 glass interaction path and window control material.
+// Attributes not encoded in the mangled name (indirect, @frozen, case order) are checked by tests/vwt.swift.
+public struct PlatformSystemDefinition {
+  public static var uiKit: SwiftUICore.PlatformSystemDefinition { get }
+  public static var appKit: SwiftUICore.PlatformSystemDefinition { get }
+}
+public struct CoreInteractionRepresentableInteractionsProxy {
+}
+public struct CoreInteractionRepresentableFeatureBufferProxy {
+}
+public struct CoreInteractionViewParentGestureContainerProxy {
+}
+public protocol CoreInteractionView : AnyObject {
+  associatedtype Content : SwiftUICore.CoreInteractionRepresentable
+  init(coreInteractions: SwiftUICore.CoreInteractionRepresentableInteractionsProxy)
+  var coreInteractions: SwiftUICore.CoreInteractionRepresentableInteractionsProxy { get set }
+  func coreAddInteraction(_ interaction: Swift.AnyObject)
+  func coreRemoveInteraction(_ interaction: Swift.AnyObject)
+  func coreSetParentGestureContainerProxy(_ proxy: SwiftUICore.CoreInteractionViewParentGestureContainerProxy)
+}
+public protocol CoreInteractionRepresentable {
+  associatedtype InteractionView : SwiftUICore.CoreInteractionView
+  static func appendFeature(to buffer: inout SwiftUICore.CoreInteractionRepresentableFeatureBufferProxy)
+  func appendInteractions(to proxy: inout SwiftUICore.CoreInteractionRepresentableInteractionsProxy)
+  func updateInteraction(_ interaction: Swift.AnyObject, tag: Swift.Int)
+}
+public struct PlatformGlassInteractionState {
+  public init(scale: CoreFoundation.CGSize, translation: CoreFoundation.CGSize)
+  public var isActive: Swift.Bool { get set }
+  public func active(_ isActive: Swift.Bool) -> SwiftUICore.PlatformGlassInteractionState
+}
+public struct PlatformGlassInteractionProxy {
+  public func updateState(_ state: SwiftUICore.PlatformGlassInteractionState)
+}
+public struct _Glass {
+  public static var regular: SwiftUICore._Glass { get }
+  public func interactive(_ isEnabled: Swift.Bool) -> SwiftUICore._Glass
+  public var debugDescription: Swift.String { get }
+}
+public struct PlatformGlassInteractionContext {
+  public var glass: SwiftUICore._Glass { get set }
+  public var proxy: SwiftUICore.PlatformGlassInteractionProxy { get set }
+  @available(macOS 26.0, *) public var cornerRadii: SwiftUICore.RectangleCornerRadii { get set }
+}
+open class PlatformGlassInteractionDefinition {
+  open class var system: SwiftUICore.PlatformSystemDefinition { get }
+  open class var interactionType: (any SwiftUICore.CoreInteractionRepresentable.Type)? { get }
+  open class func resolvedInteraction(context: SwiftUICore.PlatformGlassInteractionContext) -> (any SwiftUICore.CoreInteractionRepresentable)?
+  public static func setDefinition(_ definition: SwiftUICore.PlatformGlassInteractionDefinition.Type, system: SwiftUICore.PlatformSystemDefinition)
+  public static var appKit: SwiftUICore.PlatformGlassInteractionDefinition.Type? { get set }
+  deinit
+}
+// ===== B4: MaterialProvider SPI, hand-declared from the SwiftUICore 26.6 (25G72) exports =====
+@available(macOS 26.0, *)
+public protocol MaterialProvider : Swift.Hashable {
+  func resolveLayers(in context: SwiftUICore.Material.Context) -> [SwiftUICore.Material.Layer]
+}
+@available(macOS 26.0, *)
+public protocol _Material_CustomFillProvider : Swift.Equatable {
+  func makeCALayer() -> QuartzCore.CALayer?
+  func updateCALayer(_ layer: QuartzCore.CALayer)
+  func draw(in context: inout SwiftUICore.GraphicsContext, bounds: CoreFoundation.CGRect)
+}
+@available(macOS 26.0, *)
+public struct _ShapeSet {
+  public init(shapes: [SwiftUICore.AnyShape], smoothness: CoreFoundation.CGFloat)
+  public init(elements: [SwiftUICore._ShapeSet.Element], smoothness: CoreFoundation.CGFloat)
+  @frozen public struct Tags {
+    public let rawValue: Swift.UInt
+    @inlinable public init(rawValue: Swift.UInt) { self.rawValue = rawValue }
+  }
+  public struct Element {
+    public init<S>(_ shape: S, tags: SwiftUICore._ShapeSet.Tags) where S : SwiftUICore.Shape
+  }
+}
+@available(macOS 26.0, *)
+extension SwiftUICore.Material {
+  public init<P>(provider: P) where P : SwiftUICore.MaterialProvider
+  public struct Context {
+    public var environment: SwiftUICore.EnvironmentValues { get }
+  }
+  public struct Layer {
+    public static func sdf(_ layer: SwiftUICore.Material.Layer.SDFLayer) -> SwiftUICore.Material.Layer
+    public static func color(_ color: SwiftUICore.Color.Resolved) -> SwiftUICore.Material.Layer
+    public func opacity(_ opacity: Swift.Double) -> SwiftUICore.Material.Layer
+    public struct Filter {
+      public static func gaussianBlur(radius: CoreFoundation.CGFloat, isOpaque: Swift.Bool, isDithered: Swift.Bool) -> SwiftUICore.Material.Layer.Filter
+    }
+    public struct SDFLayer {
+      public static func shadow(inset: CoreFoundation.CGFloat, color: SwiftUICore.Color.Resolved, radius: CoreFoundation.CGFloat, offset: CoreFoundation.CGSize, knockout: Swift.Bool, inverted: Swift.Bool) -> SwiftUICore.Material.Layer.SDFLayer
+      public static func group(type: SwiftUICore.Material.Layer.SDFLayer.GroupType, layers: [SwiftUICore.Material.Layer.SDFLayer.GroupLayer], filters: [SwiftUICore.Material.Layer.Filter]) -> SwiftUICore.Material.Layer.SDFLayer
+      public static func color(_ color: SwiftUICore.Color.Resolved, inset: CoreFoundation.CGFloat) -> SwiftUICore.Material.Layer.SDFLayer
+      public static func customFill(_ fill: any SwiftUICore._Material_CustomFillProvider) -> SwiftUICore.Material.Layer.SDFLayer
+      public static func glassKeyFillHighlight(_ h: SwiftUICore.Material.Layer.SDFLayer.Contents.GlassKeyFillHighlight) -> SwiftUICore.Material.Layer.SDFLayer
+      public static func glassHighlight_v2(inset: CoreFoundation.CGFloat, color: SwiftUICore.Color.ResolvedHDR, height: CoreFoundation.CGFloat, angle: SwiftUICore.Angle, appliesDisplayAngle: Swift.Bool, curvature: CoreFoundation.CGFloat, spread: SwiftUICore.Angle, amount: CoreFoundation.CGFloat) -> SwiftUICore.Material.Layer.SDFLayer
+      public func mask(_ m: SwiftUICore.Material.Layer.SDFLayer) -> SwiftUICore.Material.Layer.SDFLayer
+      public enum GroupType {
+        case compositing
+      }
+      public struct GroupLayer {
+        public init(_ layer: SwiftUICore.Material.Layer.SDFLayer, blend: SwiftUICore.Material.Layer.SDFLayer.GroupLayer.Blend, opacity: Swift.Float)
+        public enum Blend {
+          case mode(SwiftUICore.GraphicsContext.BlendMode)
+          indirect case colorMatrix(SwiftUICore._ColorMatrix)
+          indirect case backdropAwareColorMatrix(SwiftUICore._ColorMatrix)
+        }
+      }
+      public enum Contents {
+        public struct GlassKeyFillHighlight {
+          public init()
+          public var keyAngle: SwiftUICore.Angle { get set }
+          public var keyHeight: CoreFoundation.CGFloat { get set }
+          public var keySpread: SwiftUICore.Angle { get set }
+          public var keyAmount: CoreFoundation.CGFloat { get set }
+          public var keyColor: SwiftUICore.Color.ResolvedHDR { get set }
+          public var fillAngle: SwiftUICore.Angle { get set }
+          public var fillHeight: CoreFoundation.CGFloat { get set }
+          public var fillSpread: SwiftUICore.Angle { get set }
+          public var fillAmount: CoreFoundation.CGFloat { get set }
+          public var fillColor: SwiftUICore.Color.ResolvedHDR { get set }
+          public var inset: CoreFoundation.CGFloat { get set }
+        }
+      }
+    }
+  }
+}
+@available(macOS 26.0, *)
+extension SwiftUICore.View {
+  public func materialEffect(_ material: SwiftUICore.Material, in shape: SwiftUICore._ShapeSet) -> some SwiftUICore.View
+}
+// ===== Sidebar SwiftUI: ColorProvider SPI, hand-declared from the SwiftUICore 26.6 (25G72) exports, requirement order
+// follows the method descriptors (tag, resolve, resolveHDR, apply, staticColor, kitColor, colorDescription, opacity) =====
+public protocol Serializable {
+  func serialize(to encoder: any Swift.Encoder) throws
+  static func deserialize(from decoder: any Swift.Decoder) throws -> Self
+}
+@available(macOS 26.0, *)
+extension SwiftUICore.Color {
+  public enum ProviderTag {
+  }
+}
+@available(macOS 26.0, *)
+public protocol ColorProvider : Swift.Hashable, SwiftUICore.Serializable {
+  var tag: SwiftUICore.Color.ProviderTag { get }
+  func resolve(in environment: SwiftUICore.EnvironmentValues) -> SwiftUICore.Color.Resolved
+  func resolveHDR(in environment: SwiftUICore.EnvironmentValues) -> SwiftUICore.Color.ResolvedHDR
+  func apply(color: SwiftUICore.Color, to shape: inout SwiftUICore._ShapeStyle_Shape)
+  var staticColor: CoreGraphics.CGColor? { get }
+  var kitColor: Swift.AnyObject? { get }
+  var colorDescription: Swift.String { get }
+  func opacity(at level: Swift.Int, environment: SwiftUICore.EnvironmentValues) -> Swift.Float
+}
+@available(macOS 26.0, *)
+extension SwiftUICore.ColorProvider {
+  public func resolveHDR(in environment: SwiftUICore.EnvironmentValues) -> SwiftUICore.Color.ResolvedHDR
+  public func apply(color: SwiftUICore.Color, to shape: inout SwiftUICore._ShapeStyle_Shape)
+  public var staticColor: CoreGraphics.CGColor? { get }
+  public var kitColor: Swift.AnyObject? { get }
+  public var colorDescription: Swift.String { get }
+  public func opacity(at level: Swift.Int, environment: SwiftUICore.EnvironmentValues) -> Swift.Float
+}

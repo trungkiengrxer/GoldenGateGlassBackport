@@ -1,0 +1,76 @@
+#!/bin/zsh
+# Controls GGApp (in-app Golden Gate effects: interactive glass buttons, traffic lights, scroll pocket).
+#   ggapp install         copy build/GGApp.dylib and build/GGAppLoader.dylib into the install directory (atomic replace)
+#   ggapp session-on      set the session (launchd gui) DYLD_INSERT_LIBRARIES to GGAppLoader.dylib; only apps opened AFTER that get the effects
+#   ggapp session-off     remove the ggapp part from that variable; running apps keep it until they quit (log out for a clean state)
+#   ggapp off | on        kill switch GGApp.disable in global defaults (on also clears the crash guard history)
+#   ggapp set <flex|trafficLights|pocket|flexGlassButton|toolbarPress|appex|sidebar|sidebarGlass|sidebarCatalyst|settingsSlider|settingsMoof|windowCorners|menuGlass> <on|off>
+#                         (sidebarGlass is off by default: enable only when the GGGlass shader accepts the SidebarRecipe signature;
+#                          sidebarCatalyst: Catalyst app sidebars inset from the edge like 27;
+#                          settingsMoof unset behaves like 27: asks AKURLBag for the enableOakRidge key; set forces the
+#                          "Moof!" easter egg of the slider preview on/off, clear with defaults delete -g GGApp.settingsMoof)
+#   ggapp status          settings, environment variable, apps excluded by the crash guard, last 20 log lines
+# Settings live in global defaults (GGApp.* keys) because sandboxed apps cannot read /Users/Shared.
+# Never deletes the dylibs: dyld stops every app if DYLD_INSERT_LIBRARIES points at a missing file.
+# Test variables: GG_ROOT (install directory), GG_PREFS (plist replacing the global domain), GG_HOME (directory holding Library/Logs), LAUNCHCTL.
+root=${GG_ROOT:-/Users/Shared/GoldenGate}
+dom=${GG_PREFS:--g}
+logs=${GG_HOME:-$HOME}/Library/Logs/GoldenGate
+lc=${LAUNCHCTL:-launchctl}
+build=${GG_BUILD:-${0:A:h}/build}   # GG_BUILD: separate build directory, as in build.sh
+loader=$root/GGAppLoader.dylib
+
+current() { $lc getenv DYLD_INSERT_LIBRARIES 2>/dev/null }
+without_ours() {   # current list without our loader path, joined with ':'
+    local parts=(${(s.:.)$(current)})
+    print -r -- ${(j.:.)${parts:#$loader}}
+}
+
+case ${1:-} in
+    install)
+        for f in GGApp.dylib GGAppLoader.dylib GGLegibility.dylib; do
+            [ -f $build/$f ] || { print -u2 "missing $build/$f, run ggapp/build.sh first"; exit 1; }
+        done
+        mkdir -p $root
+        for f in GGApp.dylib GGAppLoader.dylib GGLegibility.dylib; do
+            # Copy to a temporary file then mv: apps that loaded the old file keep the old inode, the new file replaces atomically.
+            cp $build/$f $root/.$f.tmp && mv -f $root/.$f.tmp $root/$f || exit 1
+        done
+        # Resources (images and string tables from macOS 27 for the Settings slider preview, optional): copy to a
+        # temporary directory then swap.
+        src=${0:A:h}/Resources
+        if [ -d $src ]; then
+            rm -rf $root/.Resources.tmp $root/.Resources.old
+            cp -R $src $root/.Resources.tmp || exit 1
+            [ -d $root/Resources ] && mv $root/Resources $root/.Resources.old
+            mv $root/.Resources.tmp $root/Resources && rm -rf $root/.Resources.old || exit 1
+        fi
+        print "installed to $root" ;;
+    session-on)
+        [ -f $loader ] && [ -f $root/GGApp.dylib ] || { print -u2 "not installed (missing $loader or GGApp.dylib): run ggapp install"; exit 1; }
+        rest=$(without_ours)
+        $lc setenv DYLD_INSERT_LIBRARIES "${rest:+$rest:}$loader" || exit 1
+        print "enabled for this session: apps opened from now on get the effects (reopen running apps)" ;;
+    session-off)
+        rest=$(without_ours)
+        if [ -n "$rest" ]; then $lc setenv DYLD_INSERT_LIBRARIES "$rest"; else $lc unsetenv DYLD_INSERT_LIBRARIES; fi
+        print "removed from the session: apps opened from now on do not load ggapp (running apps keep it until they quit; log out for a clean state)" ;;
+    off) defaults write $dom GGApp.disable -bool YES && print "disabled (applies to apps opened from now on)" ;;
+    on)
+        defaults delete $dom GGApp.disable 2>/dev/null
+        rm -rf $logs/guard
+        print "enabled, crash guard history cleared (applies to apps opened from now on; sandboxed apps keep their log and guard in their container)" ;;
+    set)
+        case ${2:-} in flex|trafficLights|pocket|flexGlassButton|toolbarPress|appex|sidebar|sidebarGlass|sidebarCatalyst|settingsSlider|settingsMoof|windowCorners|menuGlass) ;; *) print -u2 "key must be flex, trafficLights, pocket, flexGlassButton, toolbarPress, appex, sidebar, sidebarGlass, sidebarCatalyst, settingsSlider, settingsMoof, windowCorners or menuGlass"; exit 1 ;; esac
+        case ${3:-} in on) v=YES ;; off) v=NO ;; *) print -u2 "value must be on or off"; exit 1 ;; esac
+        defaults write $dom GGApp.$2 -bool $v && print "GGApp.$2 = ${3} (applies to apps opened from now on)" ;;
+    status)
+        print "install directory: $root"
+        for f in GGApp.dylib GGAppLoader.dylib; do [ -f $root/$f ] && print "  $f: present" || print "  $f: not installed"; done
+        print "session DYLD_INSERT_LIBRARIES: ${$(current):-(not set)}"
+        print "settings (all on by default):"
+        defaults read $dom 2>/dev/null | grep '"\?GGApp\.' || print "  (no GGApp.* keys)"
+        print "excluded by the crash guard:"; ls $logs/guard/*.excluded(N:t:r) 2>/dev/null | sed 's/^/  /' || true
+        print "log ($logs/ggapp.log):"; tail -20 $logs/ggapp.log 2>/dev/null || print "  (no log yet)" ;;
+    *) print -u2 "usage: ggapp install | session-on | session-off | off | on | set <key> <on|off> | status"; exit 1 ;;
+esac

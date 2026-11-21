@@ -1,0 +1,23 @@
+# Apple binaries extracted from the system and IPSWs for analysis. Proprietary: never commit or redistribute.
+apple-bin/
+# Cloned reference repos (refs/launchbad-revived contains Apple's Dock/Launchpad binaries).
+refs/
+
+# Build output
+**/build/
+**/build-*/
+.DS_Store
+
+# Working notes, reverse-engineering logs, plans and agent memory (kept locally, not part of the project)
+/.superpowers/
+/docs/
+/renders/
+/measurements/*
+!/measurements/glass-states-25G72.json
+/tools/
+/m1-glass-inspector/
+/glass-component/
+ggglass/install.md
+ggglass/tools/rollback.md
+ggglass/tools/probe-dyld/
+installer/app-status.jpg

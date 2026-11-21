@@ -1,0 +1,45 @@
+#!/bin/zsh
+# postinstall for the Golden Gate Glass package (root).
+# The payload puts every replaceable file in /Library/GoldenGate/.payload; here each file is moved into place with mv
+# (atomic rename on the same volume: WindowServer and apps mapping the old copy keep the old inode). WindowServer is not
+# restarted: the first install asks for a restart and the daemon handles the rest.
+set -eu
+T=${3%/}                      # target volume ("" for the startup disk)
+G=$T/Library/GoldenGate
+src=$G/.payload
+
+mkdir -p $G/app
+# .metal before metallib: GGGlass only uses gg27.metallib when it is not older than gg27.metal.
+for f in GGGlass.dylib gg27.metal gg27.metallib ggd app/GGAppLoader.dylib app/GGApp.dylib app/GGLegibility.dylib; do
+    mv -f $src/$f $G/$f
+done
+touch $G/gg27.metallib
+# Resources (Settings preview assets) are optional: packages built without them keep whatever is already installed.
+if [[ -d $src/app/Resources ]]; then
+    rm -rf $G/app/.Resources.old
+    [[ -d $G/app/Resources ]] && mv $G/app/Resources $G/app/.Resources.old
+    mv $src/app/Resources $G/app/Resources
+    rm -rf $G/app/.Resources.old
+fi
+rm -rf $src
+
+[[ $(id -u) == 0 ]] && chown -R root:wheel $G   # the test (installer/tests/postinstall.sh) does not run as root
+chmod 755 $G $G/app $G/GGGlass.dylib $G/ggd $G/app/*.dylib
+chmod 644 $G/gg27.metal $G/gg27.metallib
+[[ ! -d $G/app/Resources ]] || chmod -R u=rwX,go=rX $G/app/Resources
+
+# Reinstall before the restart that finishes a previous uninstall: cancel the scheduled cleanup and the kill-switch it created.
+if [[ -f $T/Library/LaunchDaemons/com.goldengateglass.cleanup.plist ]]; then
+    rm -f $T/Library/LaunchDaemons/com.goldengateglass.cleanup.plist $T/Users/Shared/GoldenGate/disable
+fi
+
+# /Users/Shared/GoldenGate: settings and kill-switch (ggglass writes settings.plist, the GGGlass crash guard creates disable).
+# /Library/Logs/WindowServer/GoldenGate: the only place the WindowServer sandbox allows for logs and boots.plist.
+mkdir -p $T/Users/Shared/GoldenGate $T/Library/Logs/WindowServer/GoldenGate $T/Library/Logs/GoldenGate
+chmod 777 $T/Users/Shared/GoldenGate $T/Library/Logs/WindowServer/GoldenGate
+
+if [[ -z $T ]]; then
+    /bin/launchctl bootout system/com.goldengateglass.daemon 2>/dev/null || true
+    /bin/launchctl bootstrap system /Library/LaunchDaemons/com.goldengateglass.daemon.plist
+fi
+exit 0
