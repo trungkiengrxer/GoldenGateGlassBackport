@@ -52,7 +52,9 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ github.token }}
+        # Release notes: release-notes/<tag>.md when present, otherwise GitHub's generated notes.
         run: |
+          notes="release-notes/$GITHUB_REF_NAME.md"
+          if [[ -f "$notes" ]]; then set -- --notes-file "$notes"; else set -- --generate-notes; fi
           gh release create "$GITHUB_REF_NAME" installer/build/GoldenGateGlass.pkg \
-            --title "Golden Gate Glass $GITHUB_REF_NAME" \
-            --notes "Requires macOS 26.6 (25G72), Intel, SIP filesystem protections and AMFI disabled. The package is not signed: right-click it and choose Open, or run xattr -d com.apple.quarantine GoldenGateGlass.pkg. See README.md."
+            --title "Golden Gate Glass $GITHUB_REF_NAME" "$@"
