@@ -269,6 +269,12 @@ static void ggApplyPlan(NSDictionary *v, id f, CALayer *l, NSString *keyPathPref
         else if (keyPathPrefix) [l setValue:obj forKeyPath:[keyPathPrefix stringByAppendingString:k]];
         else [f setValue:obj forKey:k];
     }];
+    // 26.6 SwiftUI sizes CABackdropLayer.marginWidth to its own outer refraction (0.2 x; 9.6 on a notification card). The
+    // backdrop is captured and drawn only within bounds + margin, so a larger 27 outer refraction (41.5 on a card) clips the
+    // card shadow into a square-edged halo. Grow the margin to the written outer refraction, never shrink it.
+    double outer = [v[@"inputOuterRefractionAmount"] doubleValue];
+    if ([l respondsToSelector:NSSelectorFromString(@"marginWidth")] && [[l valueForKey:@"marginWidth"] doubleValue] < outer)
+        [l setValue:@(outer) forKey:@"marginWidth"];
 }
 
 /// Only CAFilter has a type key: a CIFilter in layer.filters (Quick Look) throws NSUnknownKeyException on valueForKey:@"type".

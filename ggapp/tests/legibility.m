@@ -208,6 +208,7 @@ int main(void) {
                 NCCase c = cases[k];
                 id layer = [NSClassFromString(@"CABackdropLayer") new];
                 ((void (*)(id, SEL, CGRect))objc_msgSend)(layer, @selector(setBounds:), CGRectMake(0, 0, c.cw, c.ch));
+                [layer setValue:@9.6 forKey:@"marginWidth"];   // 26.6 SwiftUI: margin = its own outer refraction (9.6 on a card)
                 id f = ((id (*)(id, SEL, id))objc_msgSend)(NSClassFromString(@"CAFilter"), NSSelectorFromString(@"filterWithType:"), @"glassBackground");
                 [f setValue:@(c.b) forKey:@"inputFaceColorMatrixBlack"]; [f setValue:@(c.w) forKey:@"inputFaceColorMatrixWhite"];
                 [f setValue:@(c.s) forKey:@"inputFaceColorMatrixSaturation"]; [f setValue:@(c.shadow) forKey:@"inputShadowOpacity"];
@@ -220,12 +221,15 @@ int main(void) {
                 double blur = [[f valueForKey:@"inputBlurRadius"] doubleValue], refr = [[f valueForKey:@"inputRefractionOpacity"] doubleValue];
                 id vibv = [f valueForKey:@"inputShadowVibrancyContribution"];
                 double vib = vibv ? [vibv doubleValue] : -1, scale = [[layer valueForKey:@"scale"] doubleValue];
+                // The backdrop margin must cover the outer refraction written (a 9.6 margin under a 41.5 refraction clips the
+                // card shadow into a square-edged halo); it never shrinks.
+                double outer = [[f valueForKey:@"inputOuterRefractionAmount"] doubleValue], margin = [[layer valueForKey:@"marginWidth"] doubleValue];
                 BOOL ok = coded && r == c.r && rd == c.dark && ri == c.sub && fabs(B - c.wantB) < 1e-3 && fabs(W - c.wantW) < 1e-3
                        && fabs(blur - c.blur) < 1e-3 && fabs(refr - c.refr) < 1e-3 && (c.vib < 0 || fabs(vib - c.vib) < 1e-3)
-                       && (c.scale < 0 || fabs(scale - c.scale) < 1e-3);
+                       && (c.scale < 0 || fabs(scale - c.scale) < 1e-3) && fabs(margin - fmax(outer, 9.6)) < 1e-3;
                 expect(ok, [@"NotificationCenter: " stringByAppendingString:c.name],
-                       [NSString stringWithFormat:@"code %d recipe %d dark %d subdued %d face %g/%g blur %g refr %g vib %g scale %g",
-                        coded, r, rd, ri, B, W, blur, refr, vib, scale]);
+                       [NSString stringWithFormat:@"code %d recipe %d dark %d subdued %d face %g/%g blur %g refr %g vib %g scale %g outer %g margin %g",
+                        coded, r, rd, ri, B, W, blur, refr, vib, scale, outer, margin]);
             }
             // Widget excludingPlatter layer (vibrantColorMatrix YCC black 0.6/0.7, white 1, saturation 1.1/1.2, the !P branch of
             // ChicletRecipe.PostProcess): 27 does not build it, the app makes this layer transparent (alpha row 0). Other
