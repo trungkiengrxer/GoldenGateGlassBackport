@@ -108,6 +108,25 @@ for i in 1 2 3; do st1 $t/sys/Dock.app/Contents/MacOS/host >/dev/null; done
 s=$(st1 $t/sys/Dock.app/Contents/MacOS/host); [[ "$s" == *"LEG:systemui:guard"* ]] && ok "Dock: 3 consecutive early deaths -> guard, not installed" || bad "Dock guard" "$s"
 rm -rf $t/home-st1/Library/Logs/GoldenGate/guard
 s=$(st1 $t/sys/Dock.app/Contents/MacOS/host); [[ "$s" == *"LEG:installed"* ]] && ok "Dock: clearing the guard reinstalls" || bad "Dock after clearing guard" "$s"
+# Dynamic Island: in ControlCenter GGLegibility also loads GGIsland.dylib from its directory (GGApp.island, default YES,
+# independent of GGApp.systemUI; same crash guard). A fake GGIsland.dylib prints a line from its constructor.
+mkdir -p $t/islib && cp $loader $bdir/GGApp.dylib $bdir/GGLegibility.dylib $t/islib/
+print '#include <stdio.h>\n__attribute__((constructor)) static void f(void) { printf("ISLAND:loaded\\n"); fflush(stdout); }' > $t/fakeisland.c
+clang -arch x86_64 -dynamiclib -o $t/islib/GGIsland.dylib $t/fakeisland.c
+mkapp $t/sys/ControlCenter.app com.apple.controlcenter
+isl() { env GG_PREFS=$prefs GG_HOME=$t/home-isl GG_FAKE_BUILD=25G72 DYLD_INSERT_LIBRARIES=$t/islib/GGAppLoader.dylib $1 2>/dev/null | tr '\n' ' '; }
+s=$(isl $t/sys/ControlCenter.app/Contents/MacOS/host); [[ "$s" == *"ISLAND:loaded"*"GGAPP:nodylib"* ]] && ok "ControlCenter -> loads GGIsland, no GGApp" || bad "island in ControlCenter" "$s"
+s=$(isl $t/sys/Dock.app/Contents/MacOS/host); [[ "$s" != *"ISLAND"* ]] && ok "Dock -> no GGIsland" || bad "island in Dock" "$s"
+s=$(isl $H); [[ "$s" != *"ISLAND"* ]] && ok "regular app -> no GGIsland" || bad "island in regular app" "$s"
+defaults write $prefs GGApp.systemUI -bool NO
+s=$(isl $t/sys/ControlCenter.app/Contents/MacOS/host); [[ "$s" == *"ISLAND:loaded"* ]] && ok "GGApp.systemUI NO -> GGIsland still loads" || bad "island with systemUI NO" "$s"
+defaults delete $prefs GGApp.systemUI; defaults write $prefs GGApp.island -bool NO
+s=$(isl $t/sys/ControlCenter.app/Contents/MacOS/host); [[ "$s" != *"ISLAND"* ]] && ok "GGApp.island NO -> no GGIsland" || bad "island setting" "$s"
+defaults delete $prefs GGApp.island; defaults write $prefs GGApp.disable -bool YES
+s=$(isl $t/sys/ControlCenter.app/Contents/MacOS/host); [[ "$s" != *"ISLAND"* ]] && ok "GGApp.disable -> no GGIsland" || bad "island disable" "$s"
+defaults delete $prefs GGApp.disable
+rm -rf $t/home-isl; for i in 1 2 3; do isl $t/sys/ControlCenter.app/Contents/MacOS/host >/dev/null; done
+s=$(isl $t/sys/ControlCenter.app/Contents/MacOS/host); [[ "$s" != *"ISLAND"* ]] && ok "ControlCenter: 3 early deaths -> guard, no GGIsland" || bad "island guard" "$s"
 defaults delete $prefs GGApp.systemUI
 # The host app injects DYLD_INSERT_LIBRARIES (GGAppLoader in the same directory) into the extension launch configuration (AppexEnv.m).
 s=$(env GG_PREFS=$prefs GG_HOME=$t/home-ax GG_FAKE_BUILD=25G72 HOST_APPEXENV=1 DYLD_INSERT_LIBRARIES=$dylib $H 2>/dev/null | sed -n 's/^APPEXENV://p')
@@ -126,6 +145,8 @@ clang -arch x86_64 -fobjc-arc -framework Foundation -framework CoreGraphics -I $
 # In-app glass 27 recipe and recipe codes: tests/recipe.m.
 clang -arch x86_64 -fobjc-arc -framework Foundation -I ${here:h}/Legibility $bdir/GGLegibility.dylib \
     -o $t/recipe $here/recipe.m 2>$t/err && DYLD_LIBRARY_PATH=$bdir $t/recipe || { cat $t/err; fail=1; }
+# Voice Memos waveform packing sent to GGIsland (Sources/VoiceMemosPack.h): tests/vmwave.m.
+clang -arch x86_64 -fobjc-arc -framework Foundation -I ${here:h}/Sources -o $t/vmwave $here/vmwave.m 2>$t/err && $t/vmwave || { cat $t/err; fail=1; }
 rm -rf $t
 [ $fail -eq 0 ] && print "TOTAL: all passed" || print "TOTAL: some failed"
 exit $fail

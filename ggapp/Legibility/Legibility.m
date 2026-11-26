@@ -9,6 +9,7 @@
 #import <stdatomic.h>
 #import <pthread.h>
 #import <notify.h>
+#import <dlfcn.h>
 #import <math.h>
 #import "Legibility.h"
 #import "Recipe27.h"
@@ -430,10 +431,13 @@ __attribute__((constructor)) static void ggLegibilityInit(void) {
         const char *alt = getenv("GG_PREFS");
         NSDictionary *s = alt ? [NSDictionary dictionaryWithContentsOfFile:@(alt)]
                               : [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
-        id systemUI = s[@"GGApp.systemUI"];
-        BOOL on = (systemUI ? [systemUI boolValue] : YES) && ![s[@"GGApp.disable"] boolValue];
+        id systemUI = s[@"GGApp.systemUI"], island = s[@"GGApp.island"];
+        BOOL disabled = [s[@"GGApp.disable"] boolValue];
+        BOOL on = (systemUI ? [systemUI boolValue] : YES) && !disabled;
+        // ControlCenter also runs the macOS 27 Dynamic Island (GGIsland.dylib, island/); GGIsland has its own kill switch.
+        BOOL loadIsland = strstr(exe, "/ControlCenter.app/Contents/MacOS/") && (island ? [island boolValue] : YES) && !disabled;
         gLegState = on ? "installed" : "systemui:off";
-        if (on) {
+        if (on || loadIsland) {
             // Crash guard (system processes do not go through GGApp): counts launches that did not live past 60 s; at 3
             // it stops installing. Same guard directory as GGApp, cleared by `ggapp on`.
             const char *home = getenv("GG_HOME");
@@ -449,6 +453,11 @@ __attribute__((constructor)) static void ggLegibilityInit(void) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 60 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [@"0" writeToFile:file atomically:YES encoding:NSUTF8StringEncoding error:nil];
             });
+        }
+        Dl_info me;
+        if (loadIsland && dladdr((const void *)ggLegibilityInit, &me) && me.dli_fname) {
+            NSString *p = [@(me.dli_fname).stringByDeletingLastPathComponent stringByAppendingPathComponent:@"GGIsland.dylib"];
+            if (!dlopen(p.fileSystemRepresentation, RTLD_NOW)) NSLog(@"GGLegibility: cannot load %@: %s", p, dlerror());
         }
         // Install on the first run loop pass (do not call SkyLight in the constructor, before the process has a WindowServer connection).
         if (on) dispatch_async(dispatch_get_main_queue(), ^{ gg_legibility_install(); });

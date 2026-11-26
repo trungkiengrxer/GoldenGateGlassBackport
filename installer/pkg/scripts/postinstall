@@ -10,7 +10,7 @@ src=$G/.payload
 
 mkdir -p $G/app
 # .metal before metallib: GGGlass only uses gg27.metallib when it is not older than gg27.metal.
-for f in GGGlass.dylib gg27.metal gg27.metallib ggd app/GGAppLoader.dylib app/GGApp.dylib app/GGLegibility.dylib; do
+for f in GGGlass.dylib gg27.metal gg27.metallib ggd app/GGAppLoader.dylib app/GGApp.dylib app/GGLegibility.dylib app/GGIsland.dylib; do
     mv -f $src/$f $G/$f
 done
 touch $G/gg27.metallib

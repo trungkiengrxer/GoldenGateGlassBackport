@@ -26,7 +26,7 @@ EOF
 chmod +x $t/launchctl
 mkdir -p $P/Library/LaunchDaemons $P/Library/LaunchAgents $P/Library/GoldenGate/app "$P/Applications/Golden Gate Glass.app/Contents" $P/Users/Shared/GoldenGate
 touch $P/Library/LaunchDaemons/com.goldengateglass.daemon.plist $P/Library/LaunchAgents/com.goldengateglass.agent.plist \
-    $P/Library/GoldenGate/{GGGlass.dylib,gg27.metal,gg27.metallib,ggd} $P/Library/GoldenGate/app/{GGAppLoader.dylib,GGApp.dylib,GGLegibility.dylib} \
+    $P/Library/GoldenGate/{GGGlass.dylib,gg27.metal,gg27.metallib,ggd} $P/Library/GoldenGate/app/{GGAppLoader.dylib,GGApp.dylib,GGLegibility.dylib,GGIsland.dylib} \
     $P/Users/Shared/GoldenGate/settings.plist
 print -rn -- "/x/a.dylib:$loader" > $t/env-501
 print -rn -- "$loader" > $t/env-502

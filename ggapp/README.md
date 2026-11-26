@@ -101,6 +101,7 @@ The Settings slider preview uses images and string tables from macOS 27 (Apple a
 | `GGApp.legibility` | the 27 glass transparency path in regular apps (loads `GGLegibility.dylib`) |
 | `GGApp.appRecipes` | the app computes the glass 27 recipe for each glass and writes the real values plus a recipe code into the filter. Only effective when a GGGlass that understands the codes is running (notify state `com.goldengate.glass.abi` = 2); read at load, reopen apps after changing it |
 | `GGApp.systemUI` | installs `GGLegibility.dylib` (only that part) into Dock, Control Center, Notification Center, SystemUIServer and Spotlight |
+| `GGApp.island` | GGLegibility also loads `GGIsland.dylib` (macOS 27 Dynamic Island, `island/`) into Control Center; independent of `GGApp.systemUI`, same crash guard |
 | `GGApp.exclude` | array of bundle IDs that never load, on top of the default list (loginwindow, Dock, SecurityAgent, Control Center...) |
 
 Set a key with `ggapp set <key> on|off` (for the keys the tool lists) or `defaults write -g GGApp.<key> -bool YES|NO`. Changes apply to apps opened afterwards.

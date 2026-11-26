@@ -7,7 +7,7 @@ Only for macOS 26.6 (25G72), Intel, SIP Filesystem Protections off, AMFI off (`a
 ## Build
 
 ```bash
-ggapp/build.sh && ggglass/build.sh && installer/build.sh
+ggapp/build.sh && ggglass/build.sh && island/build.sh && installer/build.sh
 ```
 Produces `installer/build/GoldenGateGlass.pkg` (and `installer/build/Golden Gate Glass.app`, `installer/build/ggd`).
 
@@ -20,7 +20,7 @@ Tests: `installer/tests/run.sh` (pure functions of ggd and the app, `ggd daemon 
 | Path | Contents |
 |---|---|
 | `/Library/GoldenGate/` | `GGGlass.dylib`, `gg27.metal`, `gg27.metallib`, `ggd` (root) |
-| `/Library/GoldenGate/app/` | `GGAppLoader.dylib`, `GGApp.dylib`, `GGLegibility.dylib`, `Resources/` (root, not 777) |
+| `/Library/GoldenGate/app/` | `GGAppLoader.dylib`, `GGApp.dylib`, `GGLegibility.dylib`, `GGIsland.dylib` (Dynamic Island, loaded by GGLegibility into ControlCenter at every launch; off: `defaults write -g GGApp.island -bool NO`), `Resources/` (root, not 777) |
 | `/Users/Shared/GoldenGate/` | `disable` (kill-switch), GGGlass `settings.plist` |
 | `/Library/LaunchDaemons/com.goldengateglass.daemon.plist` | `ggd daemon`: arms GGGlass for WindowServer, restarts WindowServer once at the login window, sets `DYLD_INSERT_LIBRARIES` for the user right at login |
 | `/Library/LaunchAgents/com.goldengateglass.agent.plist` | `ggd agent`: safety net, relaunches processes that have not loaded the loader |
@@ -39,6 +39,6 @@ The dev setup (`ggapp install` + `ggapp session-on`, dylibs in `/Users/Shared/Go
 ## Updating after each change
 
 ```bash
-ggapp/build.sh && ggglass/build.sh && installer/build.sh
+ggapp/build.sh && ggglass/build.sh && island/build.sh && installer/build.sh
 ```
 Then open `installer/build/GoldenGateGlass.pkg`. Updates do not need a restart: reopened apps get the new ggapp; a new GGGlass takes effect at the next restart. Only the first install needs a restart (the Installer conclusion page says so). On a machine with the package installed, do not use `ggapp install` (it copies into `/Users/Shared/GoldenGate`, which apps no longer load from).

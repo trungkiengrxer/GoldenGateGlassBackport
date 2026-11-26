@@ -202,6 +202,7 @@ void gg_install_all(void) {
     if (ggSetting(@"GGApp.menuGlass")) callInstall("gg_menu_glass_install");         // 27 interactive menu glass (MenuGlass.swift)
     if (ggSetting(@"GGApp.appex")) callInstall("gg_appex_env_install");             // inject the loader into extensions the host app launches
     if (ggSetting(@"GGApp.settingsSlider")) callInstall("gg_settings_slider_install"); // 27 Liquid Glass slider in the Appearance pane
+    if (ggSetting(@"GGApp.voiceMemosWaveform")) callInstall("gg_voicememos_install"); // Voice Memos waveform for GGIsland (Voice Memos only)
     if (ggSetting(@"GGApp.legibility")) {   // 27 slider path (GGLegibility.dylib in the same directory)
         Dl_info me;
         if (dladdr((const void *)gg_install_all, &me) && me.dli_fname) {

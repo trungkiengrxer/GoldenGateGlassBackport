@@ -10,7 +10,7 @@ bad() { print "FAIL $1"; fail=1; }
 V=$t/vol G=$t/vol/Library/GoldenGate
 payload() {
     mkdir -p $G/.payload/app/Resources/SettingsPreview
-    for f in GGGlass.dylib gg27.metal gg27.metallib ggd app/GGAppLoader.dylib app/GGApp.dylib app/GGLegibility.dylib; do
+    for f in GGGlass.dylib gg27.metal gg27.metallib ggd app/GGAppLoader.dylib app/GGApp.dylib app/GGLegibility.dylib app/GGIsland.dylib; do
         print -n "new" > $G/.payload/$f
     done
     print -n "new" > $G/.payload/app/Resources/SettingsPreview/pond.heic
@@ -20,7 +20,7 @@ payload() {
 payload
 /bin/zsh $script x x $V/ >/dev/null 2>&1; rc=$?
 [[ $rc == 0 ]] && ok "postinstall finished" || bad "exit code $rc"
-[[ -f $G/GGGlass.dylib && -f $G/ggd && -f $G/app/GGAppLoader.dylib && -f $G/app/Resources/SettingsPreview/pond.heic ]] \
+[[ -f $G/GGGlass.dylib && -f $G/ggd && -f $G/app/GGAppLoader.dylib && -f $G/app/GGIsland.dylib && -f $G/app/Resources/SettingsPreview/pond.heic ]] \
     && ok "files moved into place" || bad "missing files: $(find $G | sort)"
 [[ ! -e $G/.payload ]] && ok ".payload removed" || bad ".payload still present"
 [[ ! $G/gg27.metallib -ot $G/gg27.metal ]] && ok "metallib not older than .metal" || bad "metallib older than .metal"

@@ -1,6 +1,6 @@
 #!/bin/zsh
 # Build the Golden Gate Glass package: ggd, the management app, installer/build/GoldenGateGlass.pkg.
-# Requires ggapp/build (ggapp/build.sh) and ggglass/build (ggglass/build.sh).
+# Requires ggapp/build (ggapp/build.sh), ggglass/build (ggglass/build.sh) and island/build (island/build.sh).
 # GG_APP_RESOURCES overrides the ggapp resources folder (default ggapp/Resources). It holds Apple assets that are not in
 # the repository; when missing, the package is still built, only the Settings preview lacks its images and strings.
 # GG_VERSION sets the package and app version (CI passes the tag without its "v"); local builds use 0.0.0.
@@ -9,8 +9,8 @@ here=${0:A:h}; repo=${here:h}; b=$here/build
 version=${GG_VERSION:-0.0.0}
 app="$b/Golden Gate Glass.app"
 res=${GG_APP_RESOURCES:-$repo/ggapp/Resources}
-for f in $repo/ggapp/build/{GGApp,GGAppLoader,GGLegibility}.dylib $repo/ggglass/build/{GGGlass.dylib,gg27.metallib}; do
-    [[ -f $f ]] || { print -u2 "missing $f: run ggapp/build.sh and ggglass/build.sh first"; exit 1; }
+for f in $repo/ggapp/build/{GGApp,GGAppLoader,GGLegibility}.dylib $repo/ggglass/build/{GGGlass.dylib,gg27.metallib} $repo/island/build/GGIsland.dylib; do
+    [[ -f $f ]] || { print -u2 "missing $f: run ggapp/build.sh, ggglass/build.sh and island/build.sh first"; exit 1; }
 done
 rm -rf $b && mkdir -p $b/cache
 sw=(swiftc -target x86_64-apple-macos26.0 -O -module-cache-path $b/cache)
@@ -32,7 +32,7 @@ r=$b/root; pl=$r/Library/GoldenGate/.payload
 mkdir -p $pl/app $r/Library/LaunchDaemons $r/Library/LaunchAgents $r/Applications
 cp $repo/ggglass/build/GGGlass.dylib $repo/ggglass/build/gg27.metallib $b/ggd $pl/
 cp $repo/glass-harness/shaders/glass26_replica.metal $pl/gg27.metal
-cp $repo/ggapp/build/{GGApp,GGAppLoader,GGLegibility}.dylib $pl/app/
+cp $repo/ggapp/build/{GGApp,GGAppLoader,GGLegibility}.dylib $repo/island/build/GGIsland.dylib $pl/app/   # GGAppLoader loads GGIsland in ControlCenter
 if [[ -d $res ]]; then
     cp -R $res $pl/app/Resources
 else
